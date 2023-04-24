@@ -1,6 +1,5 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-const {Circle, Square, Triangle} = require('./lib/shapes.js')
 questions=[{
     type: 'input',
     message: "Please enter up to three characters: ",
@@ -24,5 +23,13 @@ questions=[{
 }]
 function promptUser(){
 inquirer.prompt(questions);
+}
+function createFile(name, data){
+    fs.writeFile(name, data, (err) =>{
+        if(err){
+            throw new Error(err);
+        }
+        console.log("File was written successfuly.");
+       })
 }
 promptUser();
