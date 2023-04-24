@@ -1,5 +1,6 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
+const { Circle, Triangle, Square} = require('./lib/shapes.js')
 questions=[{
     type: 'input',
     message: "Please enter up to three characters: ",
@@ -14,7 +15,7 @@ questions=[{
     type: 'list',
     message: "Please select a shape.",
     name: "shapes",
-    choices: ['circle', 'triangle', 'square']
+    choices: ['Circle', 'Triangle', 'Square']
 },
 {
     type: 'input',
