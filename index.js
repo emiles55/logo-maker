@@ -14,7 +14,7 @@ questions=[{
 {
     type: 'list',
     message: "Please select a shape.",
-    name: "shapes",
+    name: "shape",
     choices: ['Circle', 'Triangle', 'Square']
 },
 {
@@ -22,10 +22,13 @@ questions=[{
     message: "Enter the shape's color: ",
     name: "shapeColor"
 }]
-function promptUser(){
-inquirer.prompt(questions);
-}
+
 function createFile(name, data){
+ //   let svgString = "";
+  //  svgString =
+ //     '<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">';
+ //   svgString += "<g>";
+ //   svgString += `${answers.shape}`;
     fs.writeFile(name, data, (err) =>{
         if(err){
             throw new Error(err);
@@ -33,4 +36,30 @@ function createFile(name, data){
         console.log("File was written successfuly.");
        })
 }
-promptUser();
+function initializeShapes(data){
+if(data.shape=='Circle'){
+    const newCircle= new Circle(data.characters, data.color, data.shapeColor);
+    return `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="300" height="200">${circle.render()}<text x="150" y="125" font-size="60" 
+    text-anchor="middle" fill="${circle.color}">${circle.characters}</text></svg>`;
+}
+else if(data.shape=='Triangle'){
+    const newTriangle= new Triangle(data.characters, data.color, data.shapeColor);
+    return `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="300" height="200">${square.render()}<text x="150" y="125" font-size="60" 
+    text-anchor="middle" fill="${square.color}">${square.characters}</text></svg>`;
+}
+else if(data.shape=='Square'){
+    const newSquare= new Square(data.characters, data.color, data.shapeColor);
+    return `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="300" height="200">${triangle.render()}<text x="150" y="125" font-size="60" 
+    text-anchor="middle" fill="${triangle.color}">${triangle.characters}</text></svg>`
+}
+else{
+    console.log("Error");
+}
+
+}
+function init() {
+    inquirer.prompt(questions).then((data) =>
+        createFile('sample.svg', initializeShapes(data))
+    )
+}
+init();
